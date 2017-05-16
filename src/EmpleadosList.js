@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import goApi from './Api';
-import EmpleadoRow from './EmpleadoRow';
+//import EmpleadoRow from './EmpleadoRow';
+import { Link } from 'react-router-dom';
+import ReactTable from 'react-table';
 
 export default class EmpleadosList extends Component {
     constructor(props) {
@@ -12,30 +14,71 @@ export default class EmpleadosList extends Component {
             this.setState({ empleados: data.peoplebd })
         })
     }
+     columns = () =>{ return [{
+                Header: 'Empleados List',
+                columns: [{
+                    Header: 'Id',
+                    accessor: 'Id',
+                    filterable:false,
+                },                     
+                {
+                    Header: 'First Name',
+                    accessor: 'FirstName',
+                     filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
+                }, {
+                    Header: 'Last Name',
+                    id: 'LastName',
+                    accessor: d =>  d.LastName,
+                    filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
+                },
+                {
+                    Header: 'Email',
+                    accessor: 'Email',
+                    filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
+                }
+                ]
+            },
+            {
+                    Header: 'Accions',
+                    accessor: 'Id',
+                    filterable:false,
+                    Cell: row => (     
+                            <div>                         
+                                <Link to={`/empleados/${row.value}`} className="btn btn-default"  >                          
+                                    <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>                           
+                                </Link>
+                                &nbsp;
+                                <button type="button" className="btn btn-default" aria-label="Left Align">
+                                    <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        )
+                },
+            ];
+     }
     render() {
-        if (this.state.empleados.length > 0) {
             return (
                 <div>
-                    <ul className="list-group">
-                        {
-                            this.state.empleados.map(empleado => {
-                                return (
-                                    <EmpleadoRow key={empleado.Id}
-                                        FirstName={empleado.FirstName}
-                                        LastName={empleado.LastName}
-                                        Id={empleado.Id}
-                                        UserName={empleado.UserName}
-                                        Email={empleado.Email}
-                                    />
-                                )
-                            })
-                        }
-                    </ul>
+                	<ReactTable
+                        data={this.state.empleados}
+                        columns={this.columns()}
+                        defaultPageSize={10}
+                        className='-striped -highlight'
+                        filterable='true'
+                        resizable='true'                  
+                        getTdProps={(state, rowInfo, column, instance) => {
+                                    return {
+                                        onClick: e => console.log('Cell - onMouseEnter', {
+                                        state,
+                                        rowInfo,
+                                        column,
+                                        instance,
+                                        event: e
+                                        })
+                                    }
+                                    }}                        
+                    />
                 </div>
             );
-        }
-        else {
-            return (<h3 className="text-center">Cargando ...</h3>);
-        }
     }
 }

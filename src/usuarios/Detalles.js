@@ -23,14 +23,14 @@ export default class Detalles extends Component {
          this.setState({searchTerm: e.target.value});
          var  selected = this.state.repositorios.filter(repo => {
            // console.log(repo.name.indexOf(this.state.searchTerm));
-            return repo.name.search(this.state.searchTerm) !== -1;
+            return repo.name.indexOf(this.state.searchTerm) !== -1;
             });
          this.setState({repositoriosSelected :selected});
     }
     render() {
         if (this.state.usuario != null) {
             return (
-                <div>
+                <div>                                          
                     <div className="panel ">
                         <div className="panel-body">
                             <div className='row'>
@@ -40,6 +40,10 @@ export default class Detalles extends Component {
                                     <h2> {this.state.usuario.bio} </h2>
                                     <h2> <a href={this.state.usuario.blog} > {this.state.usuario.blog} </a> </h2>
                                     <h2>GitHub:<a href={this.state.usuario.html_url} > {this.state.usuario.html_url} </a></h2>
+                                    <hr />
+                                    <Link to="/usuarios" className="btn btn-primary" >
+                                        Volver
+                                    </Link>  
                                 </div>
                                 <div className='col-xs-12 col-sm-4 col-md-6'>
                                     <h2 className='text-center'> {this.state.usuario.public_repos} Repositorios </h2>
@@ -64,10 +68,6 @@ export default class Detalles extends Component {
                             </div>
                         </div>
                     </div>
-                    <hr />
-                    <Link to="/usuarios" className="btn btn-primary" >
-                        Volver
-                 </Link>
                 </div>
             );
         } else {
