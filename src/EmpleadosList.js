@@ -3,6 +3,8 @@ import goApi from './Api';
 //import EmpleadoRow from './EmpleadoRow';
 import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
+import { DatePicker } from 'antd';
+import 'antd/dist/antd.css';
 
 export default class EmpleadosList extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ export default class EmpleadosList extends Component {
                 {
                     Header: 'First Name',
                     accessor: 'FirstName',
-                     filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
+                    filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
                 }, {
                     Header: 'Last Name',
                     id: 'LastName',
@@ -59,6 +61,7 @@ export default class EmpleadosList extends Component {
     render() {
             return (
                 <div>
+                    <DatePicker />
                 	<ReactTable
                         data={this.state.empleados}
                         columns={this.columns()}

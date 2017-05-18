@@ -33,6 +33,11 @@ export default class NavBar extends Component {
                                 </NavLink>
                             </li>
                             <li >
+                                <NavLink to='/people'>
+                                    People
+                                </NavLink>
+                            </li>                            
+                            <li >
                                 <NavLink to='/usuarios'>
                                     Usuarios
                                 </NavLink>
