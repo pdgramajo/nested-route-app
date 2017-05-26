@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Home from './Home';
-import About from './About';
+import About from './about';
 import NavBar from './NavBar';
 import Empleados from './Empleados';
 import Usuarios from './usuarios/Usuarios';

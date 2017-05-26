@@ -1,23 +1,21 @@
 import React, {Component} from 'react';
-import goApi from '../Api';
 import UsuarioRow from './Row';
+import PropTypes from 'prop-types';
+import * as usuariosActions from './usuariosActions'
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
 
-export default class Lista extends Component {
-    constructor(props){
-        super(props);
-        this.state={usuarios:[]};
-    }    
+class Lista extends Component {
+ 
     componentWillMount() {
-        new goApi().getGitHubUsers().then( data => {
-            this.setState({usuarios : data});
-        });
+        this.props.actions.loadUsers()
     }
     render() {
-        if(this.state.usuarios.length > 0){
+        if(this.props.usuarios.length > 0){
         return (
             <div>
                 {
-                    this.state.usuarios.map(u => <UsuarioRow key={u.id} usuario={u}/>)
+                    this.props.usuarios.map(u => <UsuarioRow key={u.id} usuario={u}/>)
                 }
             </div>
         );
@@ -26,3 +24,17 @@ export default class Lista extends Component {
     }
     }
 }
+
+Lista.propTypes = {
+    usuarios: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state, ownProps) => { return { usuarios: state.usuarios } }
+
+const mapDispatchToProps = dispatch => { return { actions: bindActionCreators(usuariosActions, dispatch) } }
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lista);

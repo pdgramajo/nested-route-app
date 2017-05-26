@@ -12,7 +12,7 @@ export default class EmpleadosList extends Component {
         this.state = { empleados: [] }
     }
     componentWillMount() {
-        new goApi().get('People').then((data) => {
+        goApi.get('People').then((data) => {
             this.setState({ empleados: data.peoplebd })
         })
     }

@@ -18,27 +18,27 @@ export default class NavBar extends Component {
                     <div id="navbar" className="navbar-collapse collapse">
                         <ul className="nav navbar-nav navbar-right">
                             <li >
-                                <NavLink exact to='/'  >
+                                <NavLink exact to='/' activeClassName='active' >
                                     Home
                                  </NavLink>
                             </li>
                             <li >
-                                <NavLink to='/about' >
+                                <NavLink to='/about' activeClassName='active' >
                                     About
                                  </NavLink>
                             </li>
                             <li >
-                                <NavLink to='/empleados'>
+                                <NavLink to='/empleados' activeClassName='active'>
                                     empleados
                                 </NavLink>
                             </li>
                             <li >
-                                <NavLink to='/people'>
+                                <NavLink to='/people' activeClassName='active'>
                                     People
                                 </NavLink>
                             </li>                            
                             <li >
-                                <NavLink to='/usuarios'>
+                                <NavLink to='/usuarios' activeClassName='active'>
                                     Usuarios
                                 </NavLink>
                             </li>

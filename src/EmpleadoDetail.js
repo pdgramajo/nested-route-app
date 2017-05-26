@@ -7,6 +7,7 @@ export default class EmpleadoDetail extends Component {
         super(props);
         this.state = { empleado: null }
     }
+
     componentWillMount() {
         const url = 'People/' + this.props.match.params.id;
         new goApi().get(url).then((data) => {
@@ -25,7 +26,7 @@ export default class EmpleadoDetail extends Component {
                         <h1> FullName: {this.state.empleado.FirstName} {this.state.empleado.LastName} </h1>
                         <h2> Username: {this.state.empleado.UserName} </h2>
                         <h2> Email: {this.state.empleado.Email} </h2>
-                        <h2> Id: {this.state.empleado.Id} </h2>                        
+                        <h2> Id: {this.state.empleado.Id} </h2>                     
                     </div>
                 </div>
                 <hr />

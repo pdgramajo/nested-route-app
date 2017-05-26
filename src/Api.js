@@ -1,14 +1,16 @@
 
+const host = 'http://localhost:54445/';
+const namespace = 'api/';
+
+const BASE_URL = host + namespace;
+
+import axios from 'axios';
+
 export default class Api {
-    host = 'http://localhost:54445/';
-    namespace = 'api/';
-    option = {
-        access_token: '<asdfasdf',
-        header: { access_origin: '' }
-    };
-    get(url) {
+
+    static get(url) {
         return new Promise((resolve, reject) => {
-            fetch(this.host + this.namespace + url)
+            fetch(host + namespace + url)
                 .then((response) => {
                     return response.json()
                 })
@@ -21,7 +23,7 @@ export default class Api {
         })
 
     }
-    getGitHubUsers() {
+    static getGitHubUsers() {
         return new Promise((resolve, reject) => {
             fetch('https://api.github.com/users')
                 .then((response) => {
@@ -42,7 +44,7 @@ export default class Api {
                     return response.json()
                 })
                 .then((operson) => {
-                    let user = operson.filter(x => x.id === parseInt(id,10));
+                    let user = operson.filter(x => x.id === parseInt(id, 10));
                     console.log('data => ', user);
                     resolve(user[0]);
                 })
@@ -58,12 +60,36 @@ export default class Api {
                     return response.json()
                 })
                 .then((data) => {
-               resolve(data);
+                    resolve(data);
                 })
                 .catch((error) => {
                     reject(error);
                 })
         })
+    }
+
+    static post(url, data) {
+        return new Promise((resolve, reject) => {
+            axios.post(BASE_URL + url, data)
+                .then(function (response) {
+                    resolve(response);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        });
+    }
+
+    static put(url, data) {
+        return new Promise((resolve, reject) => {
+            axios.put(BASE_URL + url, data)
+                .then(function (response) {
+                    resolve(response);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+        });
     }
 
 }
