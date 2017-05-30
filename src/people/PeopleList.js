@@ -15,8 +15,6 @@ class PeopleList extends Component {
 
         this.props.actions.loadPeople();
     }
-
-
     columns = () => {
         return [{
             title: 'FirstName',
@@ -63,7 +61,6 @@ class PeopleList extends Component {
 
         }];
     }
-
     render() {
         return (
             <div>
@@ -75,14 +72,12 @@ class PeopleList extends Component {
 }
 
 PeopleList.propTypes = {
+    people: PropTypes.array.isRequired ,
     actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => { return { people: state.peopleReducer.people } }
 
 const mapDispatchToProps = dispatch => { return { actions: bindActionCreators(peopleActions, dispatch) } }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleList);

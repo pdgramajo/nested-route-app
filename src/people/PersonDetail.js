@@ -18,7 +18,6 @@ class PersonDetail extends Component {
     componentWillMount() {
         const id = this.props.match.params.id;
         this.props.actions.getUserById(id);
-
     }
     submit = (values) => {
         const id = this.props.match.params.id;
